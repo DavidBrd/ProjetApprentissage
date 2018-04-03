@@ -30,15 +30,20 @@ for l in labels:
 repartition = [0,0,0,0,0,0,0,0,0,0]
 for i in labels:
  	repartition[i] += 1
-for i in range(10):
-	repartition[i] = repartition[i] / len(labels)
+#for i in range(10):
+#	repartition[i] = repartition[i] / len(labels)
+
+# for i in full_dataset:
+# 	print(i)
+
+# print(data.shape)
 
 # print(data)
 # print(labels)
 # print(label_names)
 # print(name_img)
 # print(label_correspondance)
-# print(repartition)
+print(repartition)
 
 # --------------------------------------------------------------------------------------------------------------
 
