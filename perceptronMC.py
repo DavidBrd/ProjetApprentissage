@@ -14,17 +14,17 @@ class perceptron_MC():
         self.w_vectors = {c: np.array([0 for _ in range(self.data_train.shape[1] + 1)]) for c in range(10)}
 
     def shuffle_data(self):
-            assert self.data_train.shape[0] == len(self.lab_train)
-            data_train_s = np.empty(self.data_train.shape, dtype=self.data_train.dtype)
-            lab_train_s = np.empty(self.lab_train.shape, dtype=self.lab_train.dtype)
-            permutation = np.random.permutation(len(self.lab_train))
-            for old_index, new_index in enumerate(permutation):
-                data_train_s[new_index] = self.data_train[old_index]
-                lab_train_s[new_index] = self.lab_train[old_index]
-            return data_train_s, lab_train_s
+        assert self.data_train.shape[0] == len(self.lab_train)
+        data_train_s = np.empty(self.data_train.shape, dtype=self.data_train.dtype)
+        lab_train_s = np.empty(self.lab_train.shape, dtype=self.lab_train.dtype)
+        permutation = np.random.permutation(len(self.lab_train))
+        for old_index, new_index in enumerate(permutation):
+            data_train_s[new_index] = self.data_train[old_index]
+            lab_train_s[new_index] = self.lab_train[old_index]
+        return data_train_s, lab_train_s
 
     def fit(self):
-
+        update_fact = 2.
         for e in range(self.epoch):
 
             data_train_s, lab_train_s = self.shuffle_data()
@@ -41,10 +41,12 @@ class perceptron_MC():
                         arg_max, predicted_class = current_activation, l
 
                 if (predicted_class != y):
+                    x *= update_fact
                     self.w_vectors[y] += x
                     self.w_vectors[predicted_class] -= x
             nb_err, total = self.eval_model();
             error_rate = nb_err / total
+            update_fact *= .9
             print("epoch : ", e, " -> le taux d'erreur sur les données de test est de : ", error_rate)
             # print("epoch : ", e, " le taux d'erreur est de : ", print(err_rate))
 
