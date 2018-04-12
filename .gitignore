@@ -1,3 +1,11 @@
+# Dataset
+
+cifar-10-python/
+
+# Python cache
+
+__pycache__/
+
 # LibreOffice lock
 
 .~*
