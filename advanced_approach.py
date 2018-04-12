@@ -43,7 +43,7 @@ def make_new_features(data, centers, np_split):
 		for patch in patches_of_current_feature:
 			vector_of_patch = [0]*len(centers)
 			distances = [np.linalg.norm(patch - centers[center]) for center in centers]
-			cluster = distances.index(min(distances))			
+			cluster = distances.index(min(distances))
 			vector_of_patch[cluster] = 1
 			value_of_feature.extend(vector_of_patch)
 		new_data.append(value_of_feature)
@@ -51,7 +51,7 @@ def make_new_features(data, centers, np_split):
 
 
 epoch_for_k_means = 20
-epoch_for_perceptron = 300
+epoch_for_perceptron = 30
 nbr_cluster = 10
 
 print("patching des images pour le train")
