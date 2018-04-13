@@ -66,22 +66,31 @@ def make_new_features(data, centers, np_split):
 
 epoch_for_k_means = 20
 epoch_for_perceptron = 300
-nbr_cluster = 10
+nbr_cluster = 100
+
 
 print("patching des images pour le train")
 patches, true_labs = patch_img(data_train, labels_train, 4)
+
 print("Création du classifier K_Means")
 classifier_k_means = kMeans.K_Means(nbr_cluster, epoch_for_k_means)
-print("Entrainement du classifier K_Means pour obtenir \
-	les centres des clusters entrainés")
+
+print("Entrainement du classifier K_Means pour obtenir")
+print("les centres des clusters entrainés")
 classifier_k_means.fit(patches)
 clusters, centers = classifier_k_means.classifications, classifier_k_means.centers
 
-print("Patching des données de train et de test pour \
-	le passage au perceptron multi-classe")
+print("Patching des données de train et de test")
+print("pour le passage au perceptron multi-classe")
 new_data_train = make_new_features(data_train, centers, 4)
-#new_data_test = make_new_features(data_test, centers, 4)
+new_data_test = make_new_features(data_test, centers, 4)
+
 print("Création du perceptron multi-classe")
-classifier_perceptron = perceptronMC.perceptron_MC(new_data_train, new_data_train, labels_train, labels_train, epoch_for_perceptron)
-print("Entrainement du perceptron multi-classe sur les nouveaux vecteurs de features + taux d'erreur : ")
+classifier_perceptron = perceptronMC.perceptron_MC(
+	new_data_train, new_data_test,
+	labels_train, labels_test,
+	epoch_for_perceptron)
+
+print("Entrainement du perceptron multi-classe")
+print("sur les nouveaux vecteurs de features + taux d'erreur :")
 classifier_perceptron.fit()
